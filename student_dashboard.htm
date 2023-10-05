@@ -1,0 +1,83 @@
+<?php
+// Check if the user is logged in as a student
+if (!isset($_SESSION['isStudent']) || $_SESSION['isStudent'] !== true) {
+    // Redirect to the student login page if not logged in
+    header("Location: student_login.php");
+    exit();
+}
+
+// Handle student-specific actions here
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['view_rooms'])) {
+        // Handle viewing available rooms here
+        // You can retrieve room data from the database and display it to the student
+    } elseif (isset($_POST['make_booking'])) {
+        // Handle making a booking here
+        // Example: Save booking details to the database
+    } elseif (isset($_POST['modify_booking'])) {
+        // Handle modifying a booking here
+        // Example: Update booking details in the database
+    } elseif (isset($_POST['cancel_booking'])) {
+        // Handle canceling a booking here
+        // Example: Delete the booking record from the database
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to the Student Dashboard</h1>
+    <p>You are logged in as a student.</p>
+
+    <!-- View Available Rooms Form -->
+    <h2>View Available Rooms</h2>
+    <form method="post">
+        <!-- Display available rooms based on data from the database -->
+        <!-- Example: Show a list of available rooms with details -->
+        <!-- <input type="submit" name="view_rooms" value="View Available Rooms"> -->
+    </form>
+
+    <!-- Make Booking Form -->
+    <h2>Make a Booking</h2>
+    <form method="post">
+        <label for="room_to_book">Select a Room:</label>
+        <select id="room_to_book" name="room_to_book" required>
+            <!-- Populate this dropdown with available rooms from the database -->
+        </select><br>
+
+        <!-- Other booking fields go here -->
+
+        <input type="submit" name="make_booking" value="Make Booking">
+    </form>
+
+    <!-- Modify Booking Form -->
+    <h2>Modify Booking</h2>
+    <form method="post">
+        <label for="booking_to_modify">Select a Booking:</label>
+        <select id="booking_to_modify" name="booking_to_modify" required>
+            <!-- Populate this dropdown with the student's existing bookings from the database -->
+        </select><br>
+
+        <!-- Other modification fields go here -->
+
+        <input type="submit" name="modify_booking" value="Modify Booking">
+    </form>
+
+    <!-- Cancel Booking Form -->
+    <h2>Cancel Booking</h2>
+    <form method="post">
+        <label for="booking_to_cancel">Select a Booking:</label>
+        <select id="booking_to_cancel" name="booking_to_cancel" required>
+            <!-- Populate this dropdown with the student's existing bookings from the database -->
+        </select><br>
+
+        <input type="submit" name="cancel_booking" value="Cancel Booking">
+    </form>
+
+    <p><a href="logout.php">Logout</a></p>
+</body>
+</html>

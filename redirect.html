@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirecting...</title>
+</head>
+<body>
+    <script>
+        // Get the query parameters from the URL
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const username = urlParams.get('username');
+        const password = urlParams.get('password');
+
+        // Define hardcoded usernames and passwords (replace with your values)
+        const staffCredentials = { username: "staff", password: "staffpassword" };
+        const studentCredentials = { username: "student", password: "studentpassword" };
+
+        let userRole = null;
+
+        // Check if the provided credentials match a user
+        if (username === staffCredentials.username && password === staffCredentials.password) {
+            userRole = "staff";
+        } else if (username === studentCredentials.username && password === studentCredentials.password) {
+            userRole = "student";
+        }
+
+        if (userRole === "staff") {
+            // Redirect to staff_dashboard.html for staff
+            window.location.href = "staff_dashboard.htm";
+        } else if (userRole === "student") {
+            // Redirect to student_dashboard.html for students
+            window.location.href = "student_dashboard.htm";
+        } else {
+            // Display an error message or handle invalid credentials as needed
+            document.body.innerHTML = "Invalid username or password. Please try again.";
+        }
+    </script>
+</body>
+</html>

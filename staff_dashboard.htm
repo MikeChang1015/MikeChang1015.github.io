@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Staff Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to the Staff Dashboard</h1>
+    <p>You are logged in as a staff member.</p>
+
+    <!-- Room Creation Form -->
+    <h2>Create a Room</h2>
+    <form onsubmit="createRoom(); return false;">
+        <label for="room_name">Room Name:</label>
+        <input type="text" id="room_name" name="room_name" required><br>
+
+        <label for="room_capacity">Capacity:</label>
+        <input type="number" id="room_capacity" name="room_capacity" required><br>
+
+        <label for="room_price">Price:</label>
+        <input type="text" id="room_price" name="room_price" required><br>
+
+        <label for="room_datetime">Date/Time:</label>
+        <input type="datetime-local" id="room_datetime" name="room_datetime" required><br>
+
+        <label for="room_promo_code">Promotional Code:</label>
+        <input type="text" id="room_promo_code" name="room_promo_code"><br>
+
+        <input type="submit" value="Create Room">
+    </form>
+
+    <!-- Room Launch Form -->
+    <h2>Launch a Room</h2>
+    <form onsubmit="launchRoom(); return false;">
+        <label for="room_to_launch">Select a Room:</label>
+        <select id="room_to_launch" name="room_to_launch" required>
+            <option value="room1">Room 1</option>
+            <option value="room2">Room 2</option>
+            <!-- Add more room options here -->
+        </select><br>
+
+        <input type="submit" value="Launch Room">
+    </form>
+
+    <!-- Room Adjustment Form -->
+    <h2>Adjust Room</h2>
+    <form onsubmit="adjustRoom(); return false;">
+        <label for="room_to_adjust">Select a Room:</label>
+        <select id="room_to_adjust" name="room_to_adjust" required>
+            <option value="room1">Room 1</option>
+            <option value="room2">Room 2</option>
+            <!-- Add more room options here -->
+        </select><br>
+
+        <label for="room_new_capacity">New Capacity:</label>
+        <input type="number" id="room_new_capacity" name="room_new_capacity"><br>
+
+        <label for="room_new_price">New Price:</label>
+        <input type="text" id="room_new_price" name="room_new_price"><br>
+
+        <label for="room_new_datetime">New Date/Time:</label>
+        <input type="datetime-local" id="room_new_datetime" name="room_new_datetime"><br>
+
+        <label for="room_new_promo_code">New Promotional Code:</label>
+        <input type="text" id="room_new_promo_code" name="room_new_promo_code"><br>
+
+        <input type="submit" value="Adjust Room">
+    </form>
+
+    <div id="response"></div>
+
+    <script>
+        function createRoom() {
+            const roomName = document.getElementById("room_name").value;
+            const roomCapacity = document.getElementById("room_capacity").value;
+            const roomPrice = document.getElementById("room_price").value;
+            const roomDatetime = document.getElementById("room_datetime").value;
+            const roomPromoCode = document.getElementById("room_promo_code").value;
+
+            const newRoom = {
+                name: roomName,
+                capacity: roomCapacity,
+                price: roomPrice,
+                datetime: roomDatetime,
+                promo_code: roomPromoCode
+            };
+
+            // Fetch existing room data from JSON file (rooms.json)
+            fetch("rooms.json")
+                .then(response => response.json())
+                .then(existingRooms => {
+                    existingRooms.push(newRoom);
+                    return fetch("save_rooms.php", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(existingRooms)
+                    });
+                })
+                .then(response => response.json()) // Parse the response JSON
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById("response").innerHTML = "Room data saved successfully!";
+                    } else {
+                        document.getElementById("response").innerHTML = "Error creating room.";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    document.getElementById("response").innerHTML = "Error creating room.";
+                });
+        }
+
+        function launchRoom() {
+            // Your code to launch a room here
+            // ...
+        }
+
+        function adjustRoom() {
+            // Your code to adjust a room here
+            // ...
+        }
+    </script>
+
+    <p><a href="logout.html">Logout</a></p>
+</body>
+</html>
