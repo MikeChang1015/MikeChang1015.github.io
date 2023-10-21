@@ -9,19 +9,19 @@
 
     <!-- Room Creation Form -->
     <h2>Create a Room</h2>
-    <form onsubmit="createRoom(); return false;">
-        <label for="room_name">Room Name:</label>
-        <input type="text" id="room_name" name="room_name" required><br>
+    <form action = "connect.php" method = "post">
+        <label for="room_id">Room ID:</label>
+        <input type="text" id="room_id" name="room_id" required><br>
 
         <label for="room_capacity">Capacity:</label>
         <input type="number" id="room_capacity" name="room_capacity" required><br>
 
         <label for="room_price">Price:</label>
         <input type="text" id="room_price" name="room_price" required><br>
-
+		
         <label for="room_datetime">Date/Time:</label>
-        <input type="datetime-local" id="room_datetime" name="room_datetime" required><br>
-
+        <input type="datetime-local" id="room_datetime" name="room_datetime"><br>
+		
         <label for="room_promo_code">Promotional Code:</label>
         <input type="text" id="room_promo_code" name="room_promo_code"><br>
 
